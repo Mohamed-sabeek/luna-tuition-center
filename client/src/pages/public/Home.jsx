@@ -27,7 +27,7 @@ import {
   BookOpen
 } from 'lucide-react';
 import api from '../../utils/api';
-import heroImg from '../../assets/hero0.png';
+import heroImg from '../../assets/hero.png';
 import writingToolsImg from '../../assets/rewards/writing-tools.webp';
 import paperBooksImg from '../../assets/rewards/paper-books.webp';
 import measuringDrawingImg from '../../assets/rewards/measuring-drawing.webp';
