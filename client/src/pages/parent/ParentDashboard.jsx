@@ -269,23 +269,7 @@ const ParentDashboard = () => {
             </div>
           )}
 
-          {/* Worksheets download widget */}
-          <div className="bg-white dark:bg-[#1e293b] border border-slate-200 dark:border-white/5 rounded-xl p-6 shadow-sm">
-            <h4 className="font-bold text-slate-800 dark:text-white text-sm flex items-center gap-1.5 mb-2">
-              <Sparkles className="w-4 h-4 text-amber-500" />
-              Study Vault Sheets
-            </h4>
-            <p className="text-xs text-slate-500 dark:text-slate-350 font-medium leading-relaxed mb-4">
-              New PDF worksheets and booklets are ready for download in your child's standard.
-            </p>
-            <Link
-              to="/student/materials"
-              className="inline-flex items-center gap-1 text-xs font-bold text-[#1e3a8a] dark:text-luna-gold hover:underline"
-            >
-              Get PDFs now
-              <ChevronRight className="w-4 h-4" />
-            </Link>
-          </div>
+
         </div>
 
       </div>
