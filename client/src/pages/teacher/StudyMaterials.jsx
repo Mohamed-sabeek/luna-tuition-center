@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../utils/api';
+import api, { STATIC_BASE_URL } from '../../utils/api';
 import { FileText, Plus, Search, Trash2, Download, FileUp, X, RefreshCw, BookOpen } from 'lucide-react';
 
 const StudyMaterials = () => {
@@ -190,7 +190,7 @@ const StudyMaterials = () => {
 
               <div className="pt-4 border-t border-slate-50 flex justify-between items-center mt-auto">
                 <a
-                  href={`http://localhost:5000${m.filePath}`}
+                  href={`${STATIC_BASE_URL}${m.filePath}`}
                   target="_blank"
                   rel="noreferrer"
                   className="flex items-center gap-1.5 text-xs font-bold text-luna-blue bg-luna-blue/5 hover:bg-luna-blue/10 px-3.5 py-2 rounded-xl transition-all"

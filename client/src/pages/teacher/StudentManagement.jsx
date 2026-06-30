@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../../utils/api';
+import api, { STATIC_BASE_URL } from '../../utils/api';
 import {
   Plus, Search, Filter, User, Edit, Trash2, Eye, EyeOff, Mail, Phone, MapPin, 
   Calendar, X, RefreshCw, Camera, LayoutGrid, List, ChevronLeft, ChevronRight,
@@ -435,7 +435,7 @@ const StudentManagement = () => {
                     <td className="p-4">
                       <div className="w-10 h-10 rounded-xl bg-luna-blue/5 border border-luna-blue/10 overflow-hidden flex items-center justify-center text-luna-blue shrink-0">
                         {student.profilePhoto ? (
-                          <img src={`http://localhost:5000${student.profilePhoto}`} alt="" className="w-full h-full object-cover" onError={(e) => { e.target.onerror=null; e.target.src=''; }} />
+                          <img src={`${STATIC_BASE_URL}${student.profilePhoto}`} alt="" className="w-full h-full object-cover" onError={(e) => { e.target.onerror=null; e.target.src=''; }} />
                         ) : (
                           <User className="w-5 h-5" />
                         )}
@@ -508,7 +508,7 @@ const StudentManagement = () => {
                 <div className="flex items-center gap-4 mb-5 pb-5 border-b border-slate-100 dark:border-white/5">
                   <div className="w-14 h-14 rounded-2xl bg-luna-blue/5 border border-luna-blue/10 overflow-hidden flex items-center justify-center text-luna-blue shrink-0">
                     {student.profilePhoto ? (
-                      <img src={`http://localhost:5000${student.profilePhoto}`} alt="" className="w-full h-full object-cover" onError={(e) => { e.target.onerror = null; e.target.src = ''; }} />
+                      <img src={`${STATIC_BASE_URL}${student.profilePhoto}`} alt="" className="w-full h-full object-cover" onError={(e) => { e.target.onerror = null; e.target.src = ''; }} />
                     ) : <User className="w-6 h-6" />}
                   </div>
                   <div>

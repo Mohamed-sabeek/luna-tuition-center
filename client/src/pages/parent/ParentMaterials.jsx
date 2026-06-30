@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import api from '../../utils/api';
+import api, { STATIC_BASE_URL } from '../../utils/api';
 import { FileText, Download, Search, RefreshCw } from 'lucide-react';
 
 const ParentMaterials = () => {
@@ -90,7 +90,7 @@ const ParentMaterials = () => {
 
               <div className="pt-4 border-t border-slate-50">
                 <a
-                  href={`http://localhost:5000${material.filePath}`}
+                  href={`${STATIC_BASE_URL}${material.filePath}`}
                   target="_blank"
                   rel="noreferrer"
                   className="flex items-center justify-center gap-1.5 text-xs font-bold text-luna-blue bg-luna-blue/5 hover:bg-luna-blue/10 px-4 py-2.5 rounded-xl transition-all"

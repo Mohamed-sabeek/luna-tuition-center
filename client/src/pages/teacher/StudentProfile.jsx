@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import api from '../../utils/api';
+import api, { STATIC_BASE_URL } from '../../utils/api';
 import {
   User,
   ArrowLeft,
@@ -126,7 +126,7 @@ const StudentProfile = () => {
           <div className="text-center pb-6 border-b border-slate-55 flex flex-col items-center">
             <div className="w-20 h-20 rounded-3xl bg-luna-blue/5 border border-luna-blue/10 overflow-hidden flex items-center justify-center text-luna-blue mb-4">
               {student.profilePhoto ? (
-                <img src={`http://localhost:5000${student.profilePhoto}`} alt={student.name} className="w-full h-full object-cover" />
+                <img src={`${STATIC_BASE_URL}${student.profilePhoto}`} alt={student.name} className="w-full h-full object-cover" />
               ) : (
                 <User className="w-10 h-10" />
               )}
