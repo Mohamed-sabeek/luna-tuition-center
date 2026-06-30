@@ -236,7 +236,7 @@ const ParentTests = () => {
                     <XAxis dataKey="date" tick={{ fontSize: 10, fill: '#64748b' }} />
                     <YAxis domain={[0, 100]} tickFormatter={(val) => `${val}%`} tick={{ fontSize: 10, fill: '#64748b' }} />
                     <Tooltip content={<CustomLineTooltip />} cursor={{ stroke: '#e2e8f0', strokeWidth: 2, strokeDasharray: '3 3' }} />
-                    <Line type="linear" dataKey="score" stroke="#1E3A8A" strokeWidth={3} dot={{ fill: '#1E3A8A', r: 5, strokeWidth: 2, stroke: '#fff' }} activeDot={{ r: 7, strokeWidth: 0 }} />
+                    <Line type="linear" dataKey="score" stroke="#10B981" strokeWidth={3} dot={{ fill: '#10B981', r: 5, strokeWidth: 2, stroke: '#fff' }} activeDot={{ r: 7, strokeWidth: 0 }} />
                   </LineChart>
                 ) : (
                   <BarChart data={subjectAvgData}>
@@ -244,7 +244,7 @@ const ParentTests = () => {
                     <XAxis dataKey="subject" tick={{ fontSize: 10, fill: '#64748b' }} />
                     <YAxis domain={[0, 100]} tickFormatter={(val) => `${val}%`} tick={{ fontSize: 10, fill: '#64748b' }} />
                     <Tooltip content={<CustomBarTooltip />} cursor={{ fill: 'rgba(241, 245, 249, 0.4)' }} />
-                    <Bar dataKey="avg" fill="#A855F7" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="avg" fill="#1E3A8A" radius={[4, 4, 0, 0]} maxBarSize={80} />
                   </BarChart>
                 )}
               </ResponsiveContainer>
