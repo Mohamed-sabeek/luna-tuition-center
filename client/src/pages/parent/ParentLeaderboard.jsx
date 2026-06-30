@@ -166,10 +166,12 @@ const ParentLeaderboard = () => {
                       </motion.div>
 
                       <div className={`w-full rounded-t-2xl border-2 ${slot.border} ${slot.cardBg} ${slot.glow} px-3 py-2.5 text-center space-y-1 shadow-sm relative`}>
-                        {isMe && (
-                          <span className="absolute -top-2 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-luna-blue text-white text-[8px] font-black rounded-full uppercase tracking-wider whitespace-nowrap">You</span>
-                        )}
-                        <p className={`font-black truncate text-slate-900 dark:text-white ${isFirst ? 'text-sm' : 'text-xs'}`}>{student.name}</p>
+                        <div className="flex items-center justify-center gap-1.5 w-full">
+                          <p className={`font-black truncate text-slate-900 dark:text-white ${isFirst ? 'text-sm' : 'text-xs'}`}>{student.name}</p>
+                          {isMe && (
+                            <span className="px-1.5 py-0.5 bg-luna-blue text-white text-[8px] font-black rounded-md uppercase tracking-wider shrink-0">You</span>
+                          )}
+                        </div>
                         <p className="text-[10px] text-slate-500 dark:text-slate-300 font-bold">Grade {student.standard}</p>
                         <p className={`text-xs font-black flex items-center justify-center gap-1 ${slot.lunaColor}`}>
                           <Moon className="w-3 h-3 fill-current" />
