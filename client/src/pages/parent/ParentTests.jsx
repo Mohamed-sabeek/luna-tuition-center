@@ -116,6 +116,18 @@ const ParentTests = () => {
       maxMarks: t.maxMarks
     }));
 
+  // UX Hack: A line graph needs at least 2 points to draw a line. 
+  // If the student only has 1 test, we add a "Baseline" point at the start so a line appears.
+  if (trendChartData.length === 1) {
+    trendChartData.unshift({
+      date: 'Enrollment',
+      score: 0,
+      subject: 'Baseline',
+      marksObtained: 0,
+      maxMarks: 10
+    });
+  }
+
   // Subject-wise average data
   const subjectAvgData = useMemo(() => {
     const subjectMap = {};
