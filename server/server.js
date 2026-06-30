@@ -105,11 +105,11 @@ async function seedTeacher() {
     if (!teacherExists) {
       await User.create({
         name: 'Luna Teacher',
-        email: 'teacher@luna.com',
-        password: 'password123', // Pre-save hooks will encrypt
+        email: 'lunaashaa03@gmail.com',
+        password: 'ShaLuna@17', // Pre-save hooks will encrypt
         role: 'teacher',
       });
-      console.log('Seeded default teacher account (teacher@luna.com / password123)');
+      console.log('Seeded default teacher account (lunaashaa03@gmail.com / ShaLuna@17)');
     }
   } catch (error) {
     console.error('Error seeding teacher account:', error.message);

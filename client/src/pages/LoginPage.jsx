@@ -46,96 +46,99 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="bg-[#f8fafc] dark:bg-[#0f172a] min-h-[calc(100vh-80px)] text-[#0f172a] dark:text-[#f8fafc] flex items-center justify-center px-4 relative overflow-hidden text-left transition-colors duration-200">
+    <div className="bg-gradient-to-br from-indigo-50 via-white to-blue-50 dark:from-slate-900 dark:via-[#0f172a] dark:to-indigo-950 min-h-[calc(100vh-80px)] text-[#0f172a] dark:text-[#f8fafc] flex items-center justify-center px-4 relative overflow-hidden transition-colors duration-500">
       
-      {/* Background Star Glow */}
-      <div className="absolute top-1/4 left-1/4 w-[350px] h-[350px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none -z-10"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-yellow-500/5 rounded-full blur-[90px] pointer-events-none -z-10"></div>
+      {/* Decorative Orbs */}
+      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-400/20 dark:bg-blue-600/20 rounded-full blur-[120px] pointer-events-none mix-blend-multiply dark:mix-blend-screen animate-pulse duration-10000"></div>
+      <div className="absolute bottom-[-10%] right-[-10%] w-[400px] h-[400px] bg-indigo-400/20 dark:bg-indigo-600/20 rounded-full blur-[100px] pointer-events-none mix-blend-multiply dark:mix-blend-screen"></div>
 
-      <div className="w-full max-w-md space-y-6 relative">
-        <div className="text-center space-y-2">
-          <div className="inline-flex p-2 bg-transparent rounded-2xl">
-            <img src={lunaLogo} alt="Luna Logo" className="w-16 h-16 object-contain" />
+      <div className="w-full max-w-md space-y-8 relative z-10">
+        <div className="text-center space-y-3">
+          <div className="inline-flex p-3 bg-white/50 dark:bg-white/5 rounded-2xl shadow-sm backdrop-blur-sm border border-white/20">
+            <img src={lunaLogo} alt="Luna Logo" className="w-16 h-16 object-contain drop-shadow-md" />
           </div>
-          <h1 className="text-2xl font-black text-slate-900 dark:text-white">Enter The Portal</h1>
-          <p className="text-xs text-slate-500 dark:text-slate-300 font-semibold">
-            Input authorization credentials to access student stats.
+          <h1 className="text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-slate-900 to-indigo-800 dark:from-white dark:to-indigo-200">
+            Welcome Back
+          </h1>
+          <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
+            Enter your credentials to access the portal
           </p>
         </div>
 
-        {/* Login Box */}
-        <div className="bg-white dark:bg-[#1e293b] p-8 rounded-3xl border border-slate-200 dark:border-white/10 shadow-xl space-y-6">
+        {/* Login Box - Glassmorphism */}
+        <div className="bg-white/70 dark:bg-[#1e293b]/70 backdrop-blur-xl p-8 rounded-[2rem] border border-white/50 dark:border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)]">
+          
           {/* Role Toggle Selector */}
-          <div className="grid grid-cols-2 bg-slate-100 dark:bg-[#0a0e1a] p-1 rounded-xl border border-slate-200 dark:border-white/5">
+          <div className="flex p-1 bg-slate-200/50 dark:bg-slate-900/50 rounded-2xl mb-8 backdrop-blur-sm">
             <button
               type="button"
               onClick={() => setRole('student')}
-              className={`py-2 rounded-lg text-xs font-bold transition-all ${
+              className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 ${
                 role === 'student' 
-                  ? 'bg-white dark:bg-white/10 text-slate-900 dark:text-white shadow-sm dark:shadow-none' 
-                  : 'text-slate-500 dark:text-slate-300'
+                  ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' 
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
               }`}
             >
-              Student Login
+              Student
             </button>
             <button
               type="button"
               onClick={() => setRole('teacher')}
-              className={`py-2 rounded-lg text-xs font-bold transition-all ${
+              className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all duration-300 ${
                 role === 'teacher' 
-                  ? 'bg-white dark:bg-white/10 text-slate-900 dark:text-white shadow-sm dark:shadow-none' 
-                  : 'text-slate-500 dark:text-slate-300'
+                  ? 'bg-white dark:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-sm' 
+                  : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
               }`}
             >
-              Teacher Login
+              Teacher
             </button>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             {error && (
-              <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-500 dark:text-red-400 rounded-xl text-xs font-bold flex items-center gap-2">
-                <XCircle className="w-4 h-4 shrink-0" />
+              <div className="p-4 bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/20 text-red-600 dark:text-red-400 rounded-2xl text-sm font-medium flex items-center gap-3 animate-in fade-in slide-in-from-top-2">
+                <XCircle className="w-5 h-5 shrink-0" />
                 <span>{error}</span>
               </div>
             )}
 
-            <div>
-              <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-300 uppercase tracking-widest mb-1.5">
+            <div className="space-y-1.5">
+              <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider ml-1">
                 {role === 'student' ? 'Portal Username' : 'Email Address'}
               </label>
-              <div className="relative">
-                <Mail className="w-4.5 h-4.5 text-slate-400 absolute left-4 top-3" />
+              <div className="relative group">
+                <Mail className="w-5 h-5 text-slate-400 group-focus-within:text-indigo-500 absolute left-4 top-1/2 -translate-y-1/2 transition-colors" />
                 <input
                   type={role === 'student' ? 'text' : 'email'}
                   required
-                  placeholder={role === 'student' ? 'Enter your Portal Username (e.g. LUNA305)' : 'name@domain.com'}
+                  placeholder={role === 'student' ? 'e.g. LUNA305' : 'name@domain.com'}
                   value={identifier}
                   onChange={(e) => setIdentifier(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-[#0a0e1a] border border-slate-200 dark:border-white/15 pl-11 pr-4 py-2.5 rounded-xl text-slate-900 dark:text-white text-xs focus:outline-none focus:border-luna-gold focus:bg-white dark:focus:bg-[#0f1526]"
+                  className="w-full bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 pl-12 pr-4 py-3.5 rounded-2xl text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-sm"
                 />
               </div>
             </div>
 
-            <div>
-              <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-300 uppercase tracking-widest mb-1.5">
+            <div className="space-y-1.5">
+              <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 uppercase tracking-wider ml-1">
                 Password
               </label>
-              <div className="relative">
-                <Lock className="w-4.5 h-4.5 text-slate-400 absolute left-4 top-3" />
+              <div className="relative group">
+                <Lock className="w-5 h-5 text-slate-400 group-focus-within:text-indigo-500 absolute left-4 top-1/2 -translate-y-1/2 transition-colors" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   required
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full bg-slate-50 dark:bg-[#0a0e1a] border border-slate-200 dark:border-white/15 pl-11 pr-12 py-2.5 rounded-xl text-slate-900 dark:text-white text-xs focus:outline-none focus:border-luna-gold focus:bg-white dark:focus:bg-[#0f1526]"
+                  className="w-full bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 pl-12 pr-12 py-3.5 rounded-2xl text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-sm"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-3 text-slate-400 hover:text-slate-700 dark:hover:text-white cursor-pointer"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors cursor-pointer"
                 >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
             </div>
@@ -143,14 +146,14 @@ const LoginPage = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-[#1e3a8a] hover:bg-[#152a66] dark:bg-gradient-to-r dark:from-luna-gold dark:to-yellow-500 text-white dark:text-slate-900 rounded-xl text-xs font-extrabold shadow-sm hover:shadow-md transition-all cursor-pointer"
+              className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-indigo-600 to-blue-500 hover:from-indigo-500 hover:to-blue-400 text-white rounded-2xl text-sm font-bold shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 transition-all transform hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
             >
               {loading ? (
-                <RefreshCw className="w-4 h-4 animate-spin" />
+                <RefreshCw className="w-5 h-5 animate-spin" />
               ) : (
-                <ShieldCheck className="w-4.5 h-4.5" />
+                <ShieldCheck className="w-5 h-5" />
               )}
-              Authenticate Session
+              {loading ? 'Logging in...' : 'Login'}
             </button>
           </form>
         </div>

@@ -104,8 +104,8 @@ VITE_API_URL=https://luna-tuition-center.onrender.com/api
 
 ### 🔐 Default Credentials for Local Testing
 On the first run, the database automatically seeds a master teacher account:
-*   **Email:** `teacher@luna.com`
-*   **Password:** `password123`
+*   **Email:** `lunaashaa03@gmail.com`
+*   **Password:** `ShaLuna@17`
 
 *(Parent accounts are created dynamically when you register a new student from the Teacher Portal).*
 

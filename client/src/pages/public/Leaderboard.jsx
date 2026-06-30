@@ -7,7 +7,7 @@ import trophy2Img from '../../assets/trophy/trophy2.png';
 import trophy3Img from '../../assets/trophy/trophy3.png';
 import api from '../../utils/api';
 
-const PHONE_NUMBER = '6383028607';
+const PHONE_NUMBER = '8220153507';
 
 /* Trophy images — imported from src/assets/trophy/ */
 const TROPHIES = {

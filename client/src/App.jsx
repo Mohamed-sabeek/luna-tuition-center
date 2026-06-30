@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet, Link } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import logoImg from './assets/lunalogo.png';
@@ -16,6 +16,8 @@ import ClassesAndFees from './pages/public/ClassesAndFees';
 import LunaRewards from './pages/public/LunaRewards';
 import Leaderboard from './pages/public/Leaderboard';
 import Contact from './pages/public/Contact';
+import Terms from './pages/public/Terms';
+import Privacy from './pages/public/Privacy';
 import LoginPage from './pages/LoginPage';
 
 // Teacher Pages
@@ -93,7 +95,7 @@ const PublicLayout = () => {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-12 border-b border-slate-200/60 dark:border-white/5 items-start text-left">
             {/* Logo and Info Column */}
             <div className="md:col-span-5 space-y-4">
-              <a href="/" className="flex items-center gap-2.5">
+              <Link to="/" className="flex items-center gap-2.5">
                 <img src={logoImg} alt="Luna Tuition Center Logo" className="w-9 h-9 object-contain" />
                 <div className="flex flex-col">
                   <span className="text-[#1e3a8a] dark:text-white text-base font-black tracking-tight leading-none">
@@ -103,7 +105,7 @@ const PublicLayout = () => {
                     Learn & Grow
                   </span>
                 </div>
-              </a>
+              </Link>
               <p className="text-xs text-slate-500 dark:text-slate-300 leading-relaxed font-semibold max-w-sm">
                 A friendly local tuition center combining daily tests, attendance rewards, neat handwriting books, and monthly prizes.
               </p>
@@ -116,14 +118,14 @@ const PublicLayout = () => {
               </h4>
               <ul className="space-y-2.5 text-xs font-bold">
                 <li>
-                  <a href="/about" className="hover:text-[#1e3a8a] dark:hover:text-amber-400 transition-colors">
+                  <Link to="/about" className="hover:text-[#1e3a8a] dark:hover:text-amber-400 transition-colors">
                     About Us
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/classes" className="hover:text-[#1e3a8a] dark:hover:text-amber-400 transition-colors">
+                  <Link to="/classes" className="hover:text-[#1e3a8a] dark:hover:text-amber-400 transition-colors">
                     Classes & Fees
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -135,14 +137,14 @@ const PublicLayout = () => {
               </h4>
               <ul className="space-y-2.5 text-xs font-bold">
                 <li>
-                  <a href="/contact" className="hover:text-[#1e3a8a] dark:hover:text-amber-400 transition-colors">
+                  <Link to="/contact" className="hover:text-[#1e3a8a] dark:hover:text-amber-400 transition-colors">
                     Contact Us
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/login" className="hover:text-[#1e3a8a] dark:hover:text-amber-400 transition-colors">
+                  <Link to="/login" className="hover:text-[#1e3a8a] dark:hover:text-amber-400 transition-colors">
                     Portal Access
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -154,14 +156,14 @@ const PublicLayout = () => {
               </h4>
               <ul className="space-y-2.5 text-xs font-bold">
                 <li>
-                  <a href="/" className="hover:text-[#1e3a8a] dark:hover:text-amber-400 transition-colors">
+                  <Link to="/terms" className="hover:text-[#1e3a8a] dark:hover:text-amber-400 transition-colors">
                     Terms of Service
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/" className="hover:text-[#1e3a8a] dark:hover:text-amber-400 transition-colors">
+                  <Link to="/privacy" className="hover:text-[#1e3a8a] dark:hover:text-amber-400 transition-colors">
                     Privacy Policy
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -197,6 +199,8 @@ function App() {
               <Route path="/rewards" element={<LunaRewards />} />
               <Route path="/leaderboard" element={<Leaderboard />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/terms" element={<Terms />} />
+              <Route path="/privacy" element={<Privacy />} />
               <Route path="/login" element={<LoginPage />} />
             </Route>
 

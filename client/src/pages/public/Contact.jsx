@@ -2,8 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Phone, MessageCircle, Clock, MapPin, ChevronRight } from 'lucide-react';
 
-const PHONE_NUMBER = '6383028607';
-const PHONE_DISPLAY = '+91 63830 28607';
+const PHONE_NUMBER = '8220153507';
+const PHONE_DISPLAY = '+91 82201 53507';
 const WHATSAPP_MSG = encodeURIComponent(
   'Hello! I would like to know more about Luna Tuition Center classes and fees.'
 );
@@ -50,13 +50,13 @@ const Contact = () => {
     {
       icon: Clock,
       label: 'Open Hours',
-      value: 'Monday – Saturday, 9:00 AM – 7:00 PM',
+      value: 'Monday – Sunday, 9:00 AM – 7:00 PM',
       color: 'text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/30'
     },
     {
       icon: MapPin,
       label: 'Location',
-      value: 'Luna Tuition Center — Ask us for the exact address.',
+      value: 'Luna Tuition center, Kuttaikkulam, Aranthangi-614616',
       color: 'text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/30'
     }
   ];
