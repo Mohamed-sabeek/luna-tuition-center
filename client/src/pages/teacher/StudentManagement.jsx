@@ -663,6 +663,7 @@ const StudentManagement = () => {
                   </div>
                 </div>
                 <div><label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Address Details</label><textarea required rows="2" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Street name, house no, area..." className="w-full bg-slate-50 dark:bg-[#0f172a] border border-slate-200 dark:border-white/10 px-4 py-2.5 rounded-xl text-slate-800 dark:text-slate-200 text-sm focus:outline-none focus:border-luna-blue resize-none" /></div>
+              </div>
               <div className="px-6 sm:px-8 pt-4 pb-2">
                 <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/30 p-4 rounded-2xl flex flex-col items-center text-center">
                   <h5 className="text-[10px] font-black uppercase text-blue-600 dark:text-blue-400 tracking-widest mb-2">Parent Portal Credentials</h5>
