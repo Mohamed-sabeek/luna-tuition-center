@@ -168,6 +168,7 @@ const StudentManagement = () => {
     setSubmitting(true);
     setModalError('');
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (parentEmail && !emailRegex.test(parentEmail)) {
       setModalError('Please enter a valid email address for the parent.');
       setSubmitting(false);
