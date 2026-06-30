@@ -417,7 +417,7 @@ export const deleteStudent = async (req, res) => {
     // Cascade delete student records
     await Attendance.deleteMany({ studentId: student._id });
     await Test.deleteMany({ studentId: student._id });
-    await Luna.deleteMany({ studentId: student._id });
+    await LunaAward.deleteMany({ studentId: student._id });
     await Fee.deleteMany({ studentId: student._id });
     await Handwriting.deleteMany({ studentId: student._id });
 
