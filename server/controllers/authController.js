@@ -22,11 +22,17 @@ const generateToken = (user) => {
 // @route   POST /api/auth/login
 // @access  Public
 export const loginUser = async (req, res) => {
-  const { email, password, role } = req.body;
+  const { email, username, password, role } = req.body;
 
   try {
-    // 1. Find user by email
-    const user = await User.findOne({ email: email.toLowerCase() });
+    // 1. Find user by email or username depending on what is provided
+    let user;
+    if (username) {
+      user = await User.findOne({ username: username.toUpperCase() });
+    } else if (email) {
+      user = await User.findOne({ email: email.toLowerCase() });
+    }
+
     if (!user) {
       return res.status(404).json({ message: 'Account not found.' });
     }
@@ -34,7 +40,7 @@ export const loginUser = async (req, res) => {
     // 2. Compare password
     const isMatch = await user.matchPassword(password);
     if (!isMatch) {
-      return res.status(401).json({ message: 'Incorrect email or password.' });
+      return res.status(401).json({ message: 'Incorrect credentials.' });
     }
 
     // Normalize user's database role for portal verification ('parent' maps to 'student')
@@ -58,6 +64,7 @@ export const loginUser = async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      username: user.username,
       role: user.role,
       studentId: user.studentId,
       student: student,
@@ -85,6 +92,7 @@ export const getUserProfile = async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        username: user.username,
         role: user.role,
         studentId: user.studentId,
         student: student,

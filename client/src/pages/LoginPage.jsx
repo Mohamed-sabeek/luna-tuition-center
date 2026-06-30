@@ -9,7 +9,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const [role, setRole] = useState('student'); // 'student' or 'teacher'
-  const [email, setEmail] = useState('');
+  const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -31,7 +31,7 @@ const LoginPage = () => {
     setLoading(true);
     setError('');
 
-    const res = await login(email, password, role);
+    const res = await login(identifier, password, role);
     if (res.success) {
       const userRole = res.user?.role;
       if (userRole === 'teacher') {
@@ -101,16 +101,16 @@ const LoginPage = () => {
 
             <div>
               <label className="block text-[10px] font-bold text-slate-500 dark:text-slate-300 uppercase tracking-widest mb-1.5">
-                Email Address
+                {role === 'student' ? 'Portal Username' : 'Email Address'}
               </label>
               <div className="relative">
                 <Mail className="w-4.5 h-4.5 text-slate-400 absolute left-4 top-3" />
                 <input
-                  type="email"
+                  type={role === 'student' ? 'text' : 'email'}
                   required
-                  placeholder="name@domain.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder={role === 'student' ? 'Enter your Portal Username (e.g. LUNA305)' : 'name@domain.com'}
+                  value={identifier}
+                  onChange={(e) => setIdentifier(e.target.value)}
                   className="w-full bg-slate-50 dark:bg-[#0a0e1a] border border-slate-200 dark:border-white/15 pl-11 pr-4 py-2.5 rounded-xl text-slate-900 dark:text-white text-xs focus:outline-none focus:border-luna-gold focus:bg-white dark:focus:bg-[#0f1526]"
                 />
               </div>

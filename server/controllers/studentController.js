@@ -29,17 +29,21 @@ export const createStudent = async (req, res) => {
   } = req.body;
 
   try {
-    // 1. Check if parent user already exists
-    const userExists = await User.findOne({ email: parentEmail.toLowerCase() });
-    if (userExists) {
-      return res.status(400).json({ message: 'Parent email already registered' });
+    // 1. Check if parent user already exists (by email if provided)
+    if (parentEmail) {
+      const userExists = await User.findOne({ email: parentEmail.toLowerCase() });
+      if (userExists) {
+        return res.status(400).json({ message: 'Parent email already registered' });
+      }
     }
 
-    if (rollNo) {
-      const rollExists = await Student.findOne({ rollNo: rollNo.toUpperCase() });
-      if (rollExists) {
-        return res.status(400).json({ message: `Roll number ${rollNo.toUpperCase()} is already assigned` });
-      }
+    if (!rollNo) {
+      return res.status(400).json({ message: 'Roll number is required for portal authentication' });
+    }
+
+    const rollExists = await Student.findOne({ rollNo: rollNo.toUpperCase() });
+    if (rollExists) {
+      return res.status(400).json({ message: `Roll number ${rollNo.toUpperCase()} is already assigned` });
     }
 
     // Get file path if photo uploaded
@@ -51,7 +55,8 @@ export const createStudent = async (req, res) => {
     // 2. Create Parent User Account
     const parentUser = await User.create({
       name: parentName,
-      email: parentEmail.toLowerCase(),
+      username: rollNo.toUpperCase(),
+      email: parentEmail ? parentEmail.toLowerCase() : undefined,
       password: parentPassword,
       role: 'student',
     });
@@ -61,7 +66,7 @@ export const createStudent = async (req, res) => {
       name,
       standard: Number(standard),
       parentName,
-      parentEmail: parentEmail.toLowerCase(),
+      parentEmail: parentEmail ? parentEmail.toLowerCase() : '',
       parentPhone,
       address,
       joiningDate: joiningDate ? new Date(joiningDate) : new Date(),
@@ -69,7 +74,7 @@ export const createStudent = async (req, res) => {
       parentId: parentUser._id,
       fatherName: fatherName || '',
       motherName: motherName || '',
-      rollNo: rollNo ? rollNo.toUpperCase() : undefined,
+      rollNo: rollNo.toUpperCase(),
     });
 
     // 4. Link Student to Parent User
@@ -96,8 +101,14 @@ export const createStudent = async (req, res) => {
       status: 'pending',
     });
 
-    // Send welcome email to parent with credentials
-    await sendParentWelcomeEmail(parentEmail, parentName, parentPassword);
+    // Send welcome email to parent with credentials if email is provided
+    if (parentEmail) {
+      try {
+        await sendParentWelcomeEmail(parentEmail, parentName, parentPassword);
+      } catch (e) {
+        console.warn('Failed to send welcome email:', e);
+      }
+    }
 
     res.status(201).json(student);
   } catch (error) {
@@ -345,7 +356,10 @@ export const updateStudent = async (req, res) => {
     const parent = await User.findById(student.parentId);
     if (parent) {
       if (parentName) parent.name = parentName;
-      if (parentEmail) parent.email = parentEmail.toLowerCase();
+      if (rollNo) parent.username = rollNo.toUpperCase();
+      if (parentEmail !== undefined) {
+        parent.email = parentEmail ? parentEmail.toLowerCase() : undefined;
+      }
       if (parentPassword) {
         parent.password = parentPassword; // pre-save middleware will hash it
       }
@@ -373,7 +387,9 @@ export const updateStudent = async (req, res) => {
     student.name = name || student.name;
     student.standard = standard ? Number(standard) : student.standard;
     student.parentName = parentName || student.parentName;
-    student.parentEmail = parentEmail ? parentEmail.toLowerCase() : student.parentEmail;
+    if (parentEmail !== undefined) {
+      student.parentEmail = parentEmail ? parentEmail.toLowerCase() : '';
+    }
     student.parentPhone = parentPhone || student.parentPhone;
     student.address = address || student.address;
     student.joiningDate = joiningDate ? new Date(joiningDate) : student.joiningDate;

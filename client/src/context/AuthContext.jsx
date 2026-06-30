@@ -35,9 +35,13 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   // Login handler
-  const login = async (email, password, role) => {
+  const login = async (identifier, password, role) => {
     try {
-      const { data } = await api.post('/auth/login', { email, password, role });
+      const payload = role === 'teacher' 
+        ? { email: identifier, password, role } 
+        : { username: identifier, password, role };
+      
+      const { data } = await api.post('/auth/login', payload);
       const normalizedUser = {
         ...data,
         role: data.role === 'parent' ? 'student' : data.role

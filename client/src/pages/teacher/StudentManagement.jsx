@@ -168,9 +168,14 @@ const StudentManagement = () => {
     setSubmitting(true);
     setModalError('');
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(parentEmail)) {
+    if (parentEmail && !emailRegex.test(parentEmail)) {
       setModalError('Please enter a valid email address for the parent.');
+      setSubmitting(false);
+      return;
+    }
+
+    if (!rollNo) {
+      setModalError('Roll number is required. Please enter a valid roll number.');
       setSubmitting(false);
       return;
     }
@@ -185,7 +190,7 @@ const StudentManagement = () => {
     formData.append('name', name);
     formData.append('standard', standard);
     formData.append('parentName', fatherName || motherName || 'Parent');
-    formData.append('parentEmail', parentEmail);
+    if (parentEmail) formData.append('parentEmail', parentEmail);
     formData.append('parentPhone', parentPhone);
     formData.append('address', address);
     formData.append('joiningDate', joiningDate);
@@ -637,18 +642,42 @@ const StudentManagement = () => {
                       <div><label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Father Name</label><input type="text" value={fatherName} onChange={(e) => setFatherName(e.target.value)} placeholder="Father Name" className="w-full bg-slate-50 dark:bg-[#0f172a] border border-slate-200 dark:border-white/10 px-4 py-2.5 rounded-xl text-slate-805 dark:text-slate-200 text-sm focus:outline-none focus:border-luna-blue" /></div>
                       <div><label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Mother Name</label><input type="text" value={motherName} onChange={(e) => setMotherName(e.target.value)} placeholder="Mother Name" className="w-full bg-slate-50 dark:bg-[#0f172a] border border-slate-200 dark:border-white/10 px-4 py-2.5 rounded-xl text-slate-805 dark:text-slate-200 text-sm focus:outline-none focus:border-luna-blue" /></div>
                     </div>
-                    <div><label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Parent Email (Username)</label><input type="email" required value={parentEmail} onChange={(e) => setParentEmail(e.target.value)} placeholder="parent@example.com" className="w-full bg-slate-50 dark:bg-[#0f172a] border border-slate-200 dark:border-white/10 px-4 py-2.5 rounded-xl text-slate-800 dark:text-slate-200 text-sm focus:outline-none focus:border-luna-blue" /></div>
+                    <div>
+                      <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Portal Username</label>
+                      <input type="text" readOnly value={rollNo || 'Pending...'} className="w-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-white/10 px-4 py-2.5 rounded-xl text-slate-500 dark:text-slate-400 text-sm font-bold cursor-not-allowed" />
+                      <p className="text-[9px] font-bold text-slate-400 mt-1">This will be used as the Parent Portal login username.</p>
+                    </div>
                     <div>
                       <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Parent Password</label>
                       <div className="relative flex items-center">
-                        <input type={showPassword ? 'text' : 'password'} required={!editMode} value={parentPassword} onChange={(e) => setParentPassword(e.target.value)} placeholder={editMode ? 'Leave blank to keep same' : '••••••••'} className="w-full bg-slate-50 dark:bg-[#0f172a] border border-slate-200 dark:border-white/10 pl-4 pr-12 py-2.5 rounded-xl text-slate-805 dark:text-slate-200 text-sm focus:outline-none focus:border-luna-blue" />
+                        <input type={showPassword ? 'text' : 'password'} required={!editMode} value={parentPassword} onChange={(e) => setParentPassword(e.target.value)} placeholder={editMode ? 'Leave blank to keep same' : 'Rahul@123'} className="w-full bg-slate-50 dark:bg-[#0f172a] border border-slate-200 dark:border-white/10 pl-4 pr-12 py-2.5 rounded-xl text-slate-805 dark:text-slate-200 text-sm focus:outline-none focus:border-luna-blue" />
                         <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 text-slate-450 hover:text-slate-700 dark:hover:text-white cursor-pointer">{showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}</button>
                       </div>
+                      <p className="text-[9px] font-bold text-slate-400 mt-1">The parent will use this password to log into the Parent Portal.</p>
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Parent Email (Optional)</label>
+                      <input type="email" value={parentEmail} onChange={(e) => setParentEmail(e.target.value)} placeholder="parent@example.com" className="w-full bg-slate-50 dark:bg-[#0f172a] border border-slate-200 dark:border-white/10 px-4 py-2.5 rounded-xl text-slate-800 dark:text-slate-200 text-sm focus:outline-none focus:border-luna-blue" />
                     </div>
                     <div><label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Parent Phone</label><input type="tel" required value={parentPhone} onChange={(e) => setParentPhone(e.target.value)} placeholder="+91 99999 88888" className="w-full bg-slate-50 dark:bg-[#0f172a] border border-slate-200 dark:border-white/10 px-4 py-2.5 rounded-xl text-slate-800 dark:text-slate-200 text-sm focus:outline-none focus:border-luna-blue" /></div>
                   </div>
                 </div>
                 <div><label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Address Details</label><textarea required rows="2" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Street name, house no, area..." className="w-full bg-slate-50 dark:bg-[#0f172a] border border-slate-200 dark:border-white/10 px-4 py-2.5 rounded-xl text-slate-800 dark:text-slate-200 text-sm focus:outline-none focus:border-luna-blue resize-none" /></div>
+              <div className="px-6 sm:px-8 pt-4 pb-2">
+                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/30 p-4 rounded-2xl flex flex-col items-center text-center">
+                  <h5 className="text-[10px] font-black uppercase text-blue-600 dark:text-blue-400 tracking-widest mb-2">Parent Portal Credentials</h5>
+                  <div className="flex gap-6 items-center">
+                    <div>
+                      <span className="text-[9px] text-blue-500/70 font-bold block">Username</span>
+                      <span className="text-sm font-extrabold text-blue-900 dark:text-blue-100">{rollNo || '-'}</span>
+                    </div>
+                    <div className="w-px h-8 bg-blue-200 dark:bg-blue-800"></div>
+                    <div>
+                      <span className="text-[9px] text-blue-500/70 font-bold block">Password</span>
+                      <span className="text-sm font-extrabold text-blue-900 dark:text-blue-100">{parentPassword || (editMode ? '(Unchanged)' : '-')}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div className="px-6 sm:px-8 py-4 bg-slate-50 dark:bg-slate-900/40 border-t border-slate-100 dark:border-white/5 flex justify-end gap-3 rounded-b-3xl shrink-0">
                 <button type="button" onClick={() => setModalOpen(false)} className="px-5 py-2.5 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-350 rounded-xl hover:bg-slate-100 text-xs font-bold cursor-pointer">Cancel</button>
