@@ -754,12 +754,16 @@ const AttendanceManagement = () => {
                   <th className="px-4 py-4 text-center border-r border-slate-200/40 dark:border-white/5">%</th>
                   {daysArray.map((day) => {
                     const isToday = now.getDate() === day && now.getMonth() + 1 === month && now.getFullYear() === year;
+                    const dateObj = new Date(year, month - 1, day);
+                    const weekdayShort = dateObj.toLocaleDateString('en-US', { weekday: 'short' });
+                    
                     return (
                       <th 
                         key={`th-day-${day}`} 
-                        className={`p-2 text-center text-xs font-black min-w-[36px] ${isToday ? 'bg-luna-blue/5 text-luna-blue' : ''}`}
+                        className={`p-1.5 text-center min-w-[38px] border-r border-slate-200/40 dark:border-white/5 ${isToday ? 'bg-luna-blue/5 text-luna-blue' : ''}`}
                       >
-                        {day}
+                        <div className="text-xs font-black">{day}</div>
+                        <div className={`text-[8px] uppercase tracking-wider font-bold mt-0.5 ${isToday ? 'text-luna-blue opacity-80' : 'text-slate-400'}`}>{weekdayShort}</div>
                       </th>
                     );
                   })}

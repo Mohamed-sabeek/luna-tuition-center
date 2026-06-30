@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import api from '../../utils/api';
 import { 
   Calendar, Check, XCircle, FileSpreadsheet,
@@ -40,6 +40,7 @@ const TestManagement = () => {
   const [selectedStudentProfile, setSelectedStudentProfile] = useState(null);
   const [studentProfileData, setStudentProfileData] = useState(null);
   const [profileLoading, setProfileLoading] = useState(false);
+  const saveTimeouts = useRef({});
 
   const showToast = (message, type = 'success') => {
     setToast({ message, type });
@@ -120,25 +121,31 @@ const TestManagement = () => {
     const valToSend = marksValue === '' ? '' : Number(marksValue);
     const dateStr = `${year}-${String(monthNum).padStart(2, '0')}-${String(d.day).padStart(2, '0')}`;
     
+    if (saveTimeouts.current[cellKey]) {
+      clearTimeout(saveTimeouts.current[cellKey]);
+    }
+    
     setSavingStatus(prev => ({ ...prev, [cellKey]: 'saving' }));
     
-    try {
-      await api.post('/tests/save-mark', {
-        studentId,
-        date: dateStr,
-        subject,
-        marksObtained: valToSend,
-        isMakeUp: false
-      });
-      setSavingStatus(prev => ({ ...prev, [cellKey]: 'saved' }));
-      setTimeout(() => {
-        setSavingStatus(prev => ({ ...prev, [cellKey]: null }));
-      }, 2000);
-    } catch (err) {
-      setSavingStatus(prev => ({ ...prev, [cellKey]: 'error' }));
-      const errMsg = err.response?.data?.message || 'Autosave failed.';
-      showToast(errMsg, 'error');
-    }
+    saveTimeouts.current[cellKey] = setTimeout(async () => {
+      try {
+        await api.post('/tests/save-mark', {
+          studentId,
+          date: dateStr,
+          subject,
+          marksObtained: valToSend,
+          isMakeUp: false
+        });
+        setSavingStatus(prev => ({ ...prev, [cellKey]: 'saved' }));
+        setTimeout(() => {
+          setSavingStatus(prev => ({ ...prev, [cellKey]: null }));
+        }, 2000);
+      } catch (err) {
+        setSavingStatus(prev => ({ ...prev, [cellKey]: 'error' }));
+        const errMsg = err.response?.data?.message || 'Autosave failed.';
+        showToast(errMsg, 'error');
+      }
+    }, 600);
   };
 
   const handleMarkChange = (studentId, d, value) => {

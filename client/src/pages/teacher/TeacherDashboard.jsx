@@ -66,10 +66,10 @@ const TeacherDashboard = () => {
             totalLunas: 245,
           },
           lunasByType: {
-            full_marks: 110,
-            attendance: 55,
-            handwriting_2_line: 42,
-            handwriting_4_line: 38,
+            green: 110,
+            purple: 55,
+            orange: 42,
+            blue: 38,
           },
           topStudents: [
             { name: 'Aditya Sharma', standard: 5, totalLunas: 28, rank: 1 },
@@ -109,10 +109,10 @@ const TeacherDashboard = () => {
   const { summary, lunasByType, topStudents, feeOverview } = data;
 
   const pieData = [
-    { name: 'Full Marks', value: lunasByType.full_marks || 0, color: '#22C55E' },
-    { name: 'Attendance', value: lunasByType.attendance || 0, color: '#A855F7' },
-    { name: '2 Line', value: lunasByType.handwriting_2_line || 0, color: '#F97316' },
-    { name: '4 Line', value: lunasByType.handwriting_4_line || 0, color: '#3B82F6' },
+    { name: 'Green (Marks)', value: lunasByType.green || 0, color: '#10B981' },
+    { name: 'Purple (Attendance)', value: lunasByType.purple || 0, color: '#8B5CF6' },
+    { name: 'Orange (2-Line)', value: lunasByType.orange || 0, color: '#F97316' },
+    { name: 'Blue (4-Line)', value: lunasByType.blue || 0, color: '#3B82F6' },
   ];
 
   const feeData = [
