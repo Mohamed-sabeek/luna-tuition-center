@@ -290,40 +290,6 @@ const ParentDashboard = () => {
 
       </div>
 
-      {/* 4. Bulletin Announcements */}
-      <div className="bg-white dark:bg-[#1e293b] border border-slate-200 dark:border-white/5 rounded-xl p-6 shadow-sm">
-        <h3 className="text-xl font-semibold text-slate-800 dark:text-white mb-6 flex items-center gap-2">
-          <Megaphone className="w-5 h-5 text-amber-500" />
-          Bulletin Board notices
-        </h3>
-        
-        {announcements.length === 0 ? (
-          <div className="p-6 text-center text-slate-400 font-semibold text-xs">
-            No active announcements.
-          </div>
-        ) : (
-          <div className="space-y-6">
-            {announcements.map((a) => (
-              <div key={a._id} className="p-5 bg-slate-50/50 dark:bg-white/5 border border-slate-100 dark:border-white/5 rounded-xl flex items-start gap-4">
-                <div className="p-2.5 bg-[#1e3a8a]/5 dark:bg-white/5 rounded-xl text-[#1e3a8a] dark:text-luna-gold shrink-0">
-                  <Megaphone className="w-4 h-4" />
-                </div>
-                <div>
-                  <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase">
-                    <Clock className="w-3.5 h-3.5" />
-                    <span>{new Date(a.createdAt).toLocaleDateString()}</span>
-                  </div>
-                  <h4 className="font-extrabold text-slate-800 dark:text-white text-base mt-1.5">{a.title}</h4>
-                  <p className="text-xs text-slate-500 dark:text-slate-300 font-semibold leading-relaxed mt-1 whitespace-pre-line">
-                    {a.content}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
     </div>
   );
 };

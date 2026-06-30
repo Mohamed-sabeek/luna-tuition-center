@@ -75,12 +75,6 @@ const Navbar = () => {
       items: [
         { label: 'Study Sheets', path: '/teacher/materials', icon: FileText },
       ]
-    },
-    {
-      title: 'Communication',
-      items: [
-        { label: 'Notice Board', path: '/teacher/announcements', icon: Megaphone },
-      ]
     }
   ];
 

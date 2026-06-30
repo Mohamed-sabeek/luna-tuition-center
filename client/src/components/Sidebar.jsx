@@ -53,13 +53,6 @@ const Sidebar = () => {
       items: [
         { label: 'Fees Manager', path: '/teacher/fees', icon: Coins },
       ]
-    },
-
-    {
-      title: 'Communication',
-      items: [
-        { label: 'Notice Board', path: '/teacher/announcements', icon: Megaphone },
-      ]
     }
   ];
 
