@@ -146,17 +146,12 @@ const TeacherDashboard = () => {
         <div className="flex items-center gap-3 self-start lg:self-center">
           <button
             onClick={() => setRefresh(prev => prev + 1)}
-            className="p-2.5 bg-white dark:bg-[#1e293b] text-slate-500 hover:text-slate-800 dark:hover:text-white border border-slate-200 dark:border-white/10 rounded-xl shadow-sm transition-all hover:scale-105 active:scale-95 cursor-pointer"
+            disabled={loading}
+            className="p-2.5 bg-white dark:bg-[#1e293b] text-slate-500 hover:text-slate-800 dark:hover:text-white border border-slate-200 dark:border-white/10 rounded-xl shadow-sm transition-all hover:scale-105 active:scale-95 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             title="Refresh Data"
           >
-            <RefreshCw className="w-4 h-4" />
+            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
           </button>
-          
-          <div className="relative">
-            <button className="p-2.5 bg-white dark:bg-[#1e293b] text-slate-500 hover:text-slate-850 border border-slate-200 dark:border-white/10 rounded-xl shadow-sm cursor-pointer">
-              <Bell className="w-4 h-4" />
-            </button>
-          </div>
 
           <button
             onClick={() => {
