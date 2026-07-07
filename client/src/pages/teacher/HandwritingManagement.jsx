@@ -25,8 +25,8 @@ const HandwritingManagement = () => {
         api.get('/students'),
         api.get(`/handwriting/month?year=${year}&month=${month}&type=${activeTab}`)
       ]);
-      // Only keep Grade 1-5 students! (Handwriting is ONLY for grades 1-5 now)
-      setStudents(studentsRes.data.filter(s => s.standard >= 1 && s.standard <= 5));
+      // Only keep Grade 1-8 students! (Handwriting is ONLY for grades 1-8 now)
+      setStudents(studentsRes.data.filter(s => s.standard >= 1 && s.standard <= 8));
       if (hwRes.data && hwRes.data.records) {
         setHandwritingRecords(hwRes.data.records);
       } else {
@@ -50,11 +50,11 @@ const HandwritingManagement = () => {
         const q = searchQuery.toLowerCase();
         return (
           s.name.toLowerCase().includes(q) || 
-          s.rollNumber.toLowerCase().includes(q)
+          (s.rollNo || '').toLowerCase().includes(q)
         );
       }
       return true;
-    }).sort((a, b) => a.rollNumber.localeCompare(b.rollNumber));
+    }).sort((a, b) => (a.rollNo || '').localeCompare(b.rollNo || ''));
   }, [students, selectedGrade, searchQuery]);
 
   // Generate days array for the selected month/year
@@ -295,7 +295,7 @@ const HandwritingManagement = () => {
         <div>
           <h1 className="text-2xl font-extrabold text-luna-blue">Daily Handwriting Register</h1>
           <p className="text-sm text-slate-500 font-semibold mt-0.5 flex items-center gap-2">
-            Track daily handwriting completion for Grade 1-5 students.
+            Track daily handwriting completion for Grade 1-8 students.
           </p>
         </div>
         
@@ -393,8 +393,8 @@ const HandwritingManagement = () => {
             onChange={(e) => setSelectedGrade(e.target.value)}
             className="bg-slate-50 border border-slate-200 px-4 py-2.5 rounded-xl text-slate-800 focus:outline-none focus:border-luna-blue text-sm font-semibold cursor-pointer"
           >
-            <option value="all">All Grades (1-5)</option>
-            {[1, 2, 3, 4, 5].map((g) => (
+            <option value="all">All Grades (1-8)</option>
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((g) => (
               <option key={g} value={g}>Grade {g}</option>
             ))}
           </select>
@@ -421,7 +421,7 @@ const HandwritingManagement = () => {
           </div>
         ) : filteredStudents.length === 0 ? (
           <div className="text-center py-20 text-slate-400 font-semibold">
-            {searchQuery ? 'No students found matching your search.' : 'No Grade 1-5 students registered.'}
+            {searchQuery ? 'No students found matching your search.' : 'No Grade 1-8 students registered.'}
           </div>
         ) : (
           <div className="overflow-auto relative">
@@ -463,7 +463,7 @@ const HandwritingManagement = () => {
                         <div className="flex flex-col">
                           <span className="font-bold text-slate-800 truncate max-w-[180px]">{student.name}</span>
                           <span className="text-[10px] font-bold text-slate-400 tracking-wider">
-                            {student.rollNumber}
+                            {student.rollNo || '-'}
                           </span>
                         </div>
                       </td>

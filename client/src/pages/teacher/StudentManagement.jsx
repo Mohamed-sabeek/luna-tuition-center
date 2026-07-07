@@ -191,7 +191,7 @@ const StudentManagement = () => {
     formData.append('name', name);
     formData.append('standard', standard);
     formData.append('parentName', fatherName || motherName || 'Parent');
-    if (parentEmail) formData.append('parentEmail', parentEmail);
+    formData.append('parentEmail', parentEmail || '');
     formData.append('parentPhone', parentPhone);
     formData.append('address', address);
     formData.append('joiningDate', joiningDate);

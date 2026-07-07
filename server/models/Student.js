@@ -30,9 +30,9 @@ const studentSchema = new mongoose.Schema(
     },
     parentEmail: {
       type: String,
-      required: true,
       trim: true,
       lowercase: true,
+      default: '',
     },
     parentPhone: {
       type: String,

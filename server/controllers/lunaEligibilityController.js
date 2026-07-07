@@ -198,8 +198,8 @@ export const getEligibleStudents = async (req, res) => {
 
       // ── 3 & 4. ORANGE & BLUE LUNA (HANDWRITING) ──
       const processHandwritingLuna = async (lType, bookType) => {
-        // Only Grades 1-5
-        const eligibleStudents = allStudents.filter(s => s.standard >= 1 && s.standard <= 5);
+        // Only Grades 1-8
+        const eligibleStudents = allStudents.filter(s => s.standard >= 1 && s.standard <= 8);
         
         // Generate an array of Mon-Fri date strings for this week
         const monToFriDates = [];
