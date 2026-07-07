@@ -1,6 +1,8 @@
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+import cloudinary from '../config/cloudinary.js';
 
 // Ensure directories exist
 const createDirectory = (dirPath) => {
@@ -9,13 +11,11 @@ const createDirectory = (dirPath) => {
   }
 };
 
-// Multer storage configuration
-const storage = multer.diskStorage({
+// --- Local Storage Configuration (for materials, etc.) ---
+const localStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     let dest = 'uploads/';
-    if (file.fieldname === 'profilePhoto') {
-      dest = 'uploads/profiles/';
-    } else if (file.fieldname === 'materialFile') {
+    if (file.fieldname === 'materialFile') {
       dest = 'uploads/materials/';
     }
     createDirectory(dest);
@@ -28,28 +28,51 @@ const storage = multer.diskStorage({
   },
 });
 
-// File filter (optional, e.g. for verifying file types)
-const fileFilter = (req, file, cb) => {
-  if (file.fieldname === 'profilePhoto') {
-    if (file.mimetype.startsWith('image/')) {
-      cb(null, true);
-    } else {
-      cb(new Error('Only image files are allowed for profile photos!'), false);
-    }
-  } else if (file.fieldname === 'materialFile') {
-    // Allow PDFs, Word docs, Images, etc. for materials
+const localFileFilter = (req, file, cb) => {
+  if (file.fieldname === 'materialFile') {
     cb(null, true);
   } else {
     cb(null, true);
   }
 };
 
-const upload = multer({
-  storage: storage,
-  fileFilter: fileFilter,
+export const uploadLocal = multer({
+  storage: localStorage,
+  fileFilter: localFileFilter,
   limits: {
     fileSize: 10 * 1024 * 1024, // 10MB limit
   },
 });
 
-export default upload;
+// --- Cloudinary Storage Configuration (for profile photos) ---
+const cloudinaryStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'luna-tuition-center/students',
+    allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
+    // Cloudinary automatically generates a unique public_id, but we can configure it if needed
+  },
+});
+
+const cloudinaryFileFilter = (req, file, cb) => {
+  if (file.fieldname === 'profilePhoto') {
+    if (file.mimetype.startsWith('image/')) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only image files are allowed for profile photos!'), false);
+    }
+  } else {
+    cb(new Error('Invalid field name for cloudinary upload'), false);
+  }
+};
+
+export const uploadCloudinary = multer({
+  storage: cloudinaryStorage,
+  fileFilter: cloudinaryFileFilter,
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB limit for profile photos
+  },
+});
+
+// For backward compatibility with older routes, export local by default
+export default uploadLocal;

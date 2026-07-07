@@ -443,7 +443,7 @@ const StudentManagement = () => {
                         <User className="w-5 h-5 absolute" />
                         {student.profilePhoto && (
                           <img 
-                            src={`${STATIC_BASE_URL}${student.profilePhoto}`} 
+                            src={student.profilePhoto.startsWith('http') ? student.profilePhoto : `${STATIC_BASE_URL}${student.profilePhoto}`} 
                             alt="" 
                             className="w-full h-full object-cover relative z-10" 
                             onError={(e) => { e.target.onerror=null; e.target.style.display='none'; }} 
@@ -520,7 +520,7 @@ const StudentManagement = () => {
                     <User className="w-6 h-6 absolute" />
                     {student.profilePhoto && (
                       <img 
-                        src={`${STATIC_BASE_URL}${student.profilePhoto}`} 
+                        src={student.profilePhoto.startsWith('http') ? student.profilePhoto : `${STATIC_BASE_URL}${student.profilePhoto}`} 
                         alt="" 
                         className="w-full h-full object-cover relative z-10" 
                         onError={(e) => { e.target.onerror = null; e.target.style.display = 'none'; }} 

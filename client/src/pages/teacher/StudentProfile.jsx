@@ -124,11 +124,15 @@ const StudentProfile = () => {
         {/* Profile Card */}
         <div className="bg-white border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
           <div className="text-center pb-6 border-b border-slate-55 flex flex-col items-center">
-            <div className="w-20 h-20 rounded-3xl bg-luna-blue/5 border border-luna-blue/10 overflow-hidden flex items-center justify-center text-luna-blue mb-4">
-              {student.profilePhoto ? (
-                <img src={`${STATIC_BASE_URL}${student.profilePhoto}`} alt={student.name} className="w-full h-full object-cover" />
-              ) : (
-                <User className="w-10 h-10" />
+            <div className="w-20 h-20 rounded-3xl bg-luna-blue/5 border border-luna-blue/10 overflow-hidden flex items-center justify-center text-luna-blue mb-4 relative">
+              <User className="w-10 h-10 absolute" />
+              {student.profilePhoto && (
+                <img 
+                  src={student.profilePhoto.startsWith('http') ? student.profilePhoto : `${STATIC_BASE_URL}${student.profilePhoto}`} 
+                  alt={student.name} 
+                  className="w-full h-full object-cover relative z-10"
+                  onError={(e) => { e.target.onerror = null; e.target.style.display = 'none'; }}
+                />
               )}
             </div>
             <h2 className="text-xl font-extrabold text-slate-800">{student.name}</h2>

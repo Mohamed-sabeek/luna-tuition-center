@@ -9,6 +9,18 @@ import { sendParentWelcomeEmail } from '../utils/mailer.js';
 import { calculateAttendanceStats } from '../utils/attendanceCalculator.js';
 import fs from 'fs';
 import path from 'path';
+import cloudinary from '../config/cloudinary.js';
+
+const getCloudinaryPublicId = (url) => {
+  if (!url || !url.includes('cloudinary.com')) return null;
+  const parts = url.split('/');
+  const filename = parts.pop(); // e.g. student.jpg
+  // find 'upload' and skip the version 'vXXX'
+  const uploadIndex = parts.indexOf('upload');
+  if (uploadIndex === -1) return null;
+  const folderParts = parts.slice(uploadIndex + 2);
+  return [...folderParts, filename.split('.')[0]].join('/');
+};
 
 // @desc    Create student & Parent Account
 // @route   POST /api/students
@@ -43,7 +55,7 @@ export const createStudent = async (req, res) => {
     // Get file path if photo uploaded
     let profilePhoto = '';
     if (req.file) {
-      profilePhoto = `/uploads/profiles/${req.file.filename}`;
+      profilePhoto = req.file.path; // Cloudinary secure URL
     }
 
     // 2. Create Parent User Account
@@ -359,16 +371,28 @@ export const updateStudent = async (req, res) => {
     if (req.file) {
       // Delete old photo if exists
       if (student.profilePhoto) {
-        const oldPath = path.join(process.cwd(), student.profilePhoto);
-        if (fs.existsSync(oldPath)) {
-          try {
-            fs.unlinkSync(oldPath);
-          } catch (e) {
-            console.error('Failed to delete old profile photo:', e);
+        if (student.profilePhoto.includes('cloudinary.com')) {
+          const publicId = getCloudinaryPublicId(student.profilePhoto);
+          if (publicId) {
+            try {
+              await cloudinary.uploader.destroy(publicId);
+            } catch (e) {
+              console.error('Failed to delete old Cloudinary image:', e);
+            }
+          }
+        } else {
+          // Fallback to delete local file if they had one
+          const oldPath = path.join(process.cwd(), student.profilePhoto);
+          if (fs.existsSync(oldPath)) {
+            try {
+              fs.unlinkSync(oldPath);
+            } catch (e) {
+              console.error('Failed to delete old local profile photo:', e);
+            }
           }
         }
       }
-      profilePhoto = `/uploads/profiles/${req.file.filename}`;
+      profilePhoto = req.file.path; // New Cloudinary URL
     }
 
     // Update student fields
@@ -403,14 +427,25 @@ export const deleteStudent = async (req, res) => {
       return res.status(404).json({ message: 'Student not found' });
     }
 
-    // Delete profile photo from system if exists
+    // Delete profile photo from system/Cloudinary if exists
     if (student.profilePhoto) {
-      const photoPath = path.join(process.cwd(), student.profilePhoto);
-      if (fs.existsSync(photoPath)) {
-        try {
-          fs.unlinkSync(photoPath);
-        } catch (e) {
-          console.error('Failed to delete profile photo file:', e);
+      if (student.profilePhoto.includes('cloudinary.com')) {
+        const publicId = getCloudinaryPublicId(student.profilePhoto);
+        if (publicId) {
+          try {
+            await cloudinary.uploader.destroy(publicId);
+          } catch (e) {
+            console.error('Failed to delete Cloudinary image on student delete:', e);
+          }
+        }
+      } else {
+        const photoPath = path.join(process.cwd(), student.profilePhoto);
+        if (fs.existsSync(photoPath)) {
+          try {
+            fs.unlinkSync(photoPath);
+          } catch (e) {
+            console.error('Failed to delete local profile photo file:', e);
+          }
         }
       }
     }
