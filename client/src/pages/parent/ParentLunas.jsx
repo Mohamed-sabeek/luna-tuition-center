@@ -139,7 +139,7 @@ const ParentLunas = () => {
               {/* Top: Image & Name */}
               <div className="flex flex-col items-center mb-6">
                 <div className={`w-20 h-20 mb-3 transition-shadow duration-300 rounded-full ${cfg.glow}`}>
-                  <img src={cfg.img} alt={cfg.name} className="w-full h-full object-contain" />
+                  <img src={cfg.img} alt={cfg.name} className="w-full h-full object-cover rounded-full" />
                 </div>
                 <h3 className={`text-base font-black ${cfg.text}`}>{cfg.name}</h3>
               </div>
@@ -192,7 +192,7 @@ const ParentLunas = () => {
                   {/* Content Box */}
                   <div className="bg-slate-50 dark:bg-slate-900/40 border border-slate-100 dark:border-white/5 rounded-[20px] p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition-colors hover:border-slate-200 dark:hover:border-white/10">
                     <div className="flex items-start gap-4">
-                      <img src={cfg.img} alt={cfg.name} className="w-12 h-12 object-contain" />
+                      <img src={cfg.img} alt={cfg.name} className="w-12 h-12 object-cover rounded-full" />
                       <div>
                         <div className="flex items-center gap-2 mb-1">
                           <span className={`text-[10px] font-black uppercase tracking-wider ${cfg.text}`}>{cfg.name}</span>
@@ -214,7 +214,7 @@ const ParentLunas = () => {
                     
                     <div className="flex items-center gap-2 self-end sm:self-center shrink-0">
                       <span className={`text-xl font-black ${cfg.text}`}>+{tx.count}</span>
-                      <img src={cfg.img} alt="Luna" className="w-6 h-6 object-contain" />
+                      <img src={cfg.img} alt="Luna" className="w-6 h-6 object-cover rounded-full" />
                     </div>
                   </div>
                 </div>

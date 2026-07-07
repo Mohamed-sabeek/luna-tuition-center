@@ -123,7 +123,7 @@ const LunaRewards = () => {
                   <img 
                     src={r.image} 
                     alt={r.name} 
-                    className="w-20 h-20 object-contain group-hover:scale-110 transition-transform duration-300"
+                    className="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-300"
                   />
                 </div>
 
