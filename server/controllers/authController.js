@@ -27,10 +27,10 @@ export const loginUser = async (req, res) => {
   try {
     // 1. Find user by email or username depending on what is provided
     let user;
-    if (username) {
-      user = await User.findOne({ username: username.toUpperCase() });
-    } else if (email) {
+    if (role === 'teacher') {
       user = await User.findOne({ email: email.toLowerCase() });
+    } else {
+      user = await User.findOne({ username: username.toUpperCase() });
     }
 
     if (!user) {

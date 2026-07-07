@@ -439,11 +439,15 @@ const StudentManagement = () => {
                       />
                     </td>
                     <td className="p-4">
-                      <div className="w-10 h-10 rounded-xl bg-luna-blue/5 border border-luna-blue/10 overflow-hidden flex items-center justify-center text-luna-blue shrink-0">
-                        {student.profilePhoto ? (
-                          <img src={`${STATIC_BASE_URL}${student.profilePhoto}`} alt="" className="w-full h-full object-cover" onError={(e) => { e.target.onerror=null; e.target.src=''; }} />
-                        ) : (
-                          <User className="w-5 h-5" />
+                      <div className="w-10 h-10 rounded-xl bg-luna-blue/5 border border-luna-blue/10 overflow-hidden flex items-center justify-center text-luna-blue shrink-0 relative">
+                        <User className="w-5 h-5 absolute" />
+                        {student.profilePhoto && (
+                          <img 
+                            src={`${STATIC_BASE_URL}${student.profilePhoto}`} 
+                            alt="" 
+                            className="w-full h-full object-cover relative z-10" 
+                            onError={(e) => { e.target.onerror=null; e.target.style.display='none'; }} 
+                          />
                         )}
                       </div>
                     </td>
@@ -512,10 +516,16 @@ const StudentManagement = () => {
 
               <div>
                 <div className="flex items-center gap-4 mb-5 pb-5 border-b border-slate-100 dark:border-white/5">
-                  <div className="w-14 h-14 rounded-2xl bg-luna-blue/5 border border-luna-blue/10 overflow-hidden flex items-center justify-center text-luna-blue shrink-0">
-                    {student.profilePhoto ? (
-                      <img src={`${STATIC_BASE_URL}${student.profilePhoto}`} alt="" className="w-full h-full object-cover" onError={(e) => { e.target.onerror = null; e.target.src = ''; }} />
-                    ) : <User className="w-6 h-6" />}
+                  <div className="w-14 h-14 rounded-2xl bg-luna-blue/5 border border-luna-blue/10 overflow-hidden flex items-center justify-center text-luna-blue shrink-0 relative">
+                    <User className="w-6 h-6 absolute" />
+                    {student.profilePhoto && (
+                      <img 
+                        src={`${STATIC_BASE_URL}${student.profilePhoto}`} 
+                        alt="" 
+                        className="w-full h-full object-cover relative z-10" 
+                        onError={(e) => { e.target.onerror = null; e.target.style.display = 'none'; }} 
+                      />
+                    )}
                   </div>
                   <div>
                     <h3 className="font-extrabold text-slate-800 dark:text-white text-lg leading-tight pr-12">{student.name}</h3>
@@ -659,6 +669,7 @@ const StudentManagement = () => {
                     <div>
                       <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Parent Email (Optional)</label>
                       <input type="email" value={parentEmail} onChange={(e) => setParentEmail(e.target.value)} placeholder="parent@example.com" className="w-full bg-slate-50 dark:bg-[#0f172a] border border-slate-200 dark:border-white/10 px-4 py-2.5 rounded-xl text-slate-800 dark:text-slate-200 text-sm focus:outline-none focus:border-luna-blue" />
+                      <p className="text-[9px] font-bold text-slate-400 mt-1">Used only for communication and future password recovery. Not required for Parent Portal login.</p>
                     </div>
                     <div><label className="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1.5">Parent Phone</label><input type="tel" required value={parentPhone} onChange={(e) => setParentPhone(e.target.value)} placeholder="+91 99999 88888" className="w-full bg-slate-50 dark:bg-[#0f172a] border border-slate-200 dark:border-white/10 px-4 py-2.5 rounded-xl text-slate-800 dark:text-slate-200 text-sm focus:outline-none focus:border-luna-blue" /></div>
                   </div>

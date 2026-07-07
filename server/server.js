@@ -4,6 +4,7 @@ import cors from 'cors';
 import path from 'path';
 import fs from 'fs';
 import connectDB from './config/db.js';
+import mongoose from 'mongoose';
 
 // Route imports
 import authRoutes from './routes/authRoutes.js';
@@ -25,7 +26,20 @@ import User from './models/User.js';
 dotenv.config();
 
 // Connect to MongoDB
-connectDB().then(() => {
+connectDB().then(async () => {
+  try {
+    const db = mongoose.connection.db;
+    const usersCollection = db.collection('users');
+    const indexes = await usersCollection.indexes();
+    const emailIndex = indexes.find(i => i.name === 'email_1');
+    if (emailIndex) {
+      await usersCollection.dropIndex('email_1');
+      console.log('Successfully dropped old email_1 index from users collection.');
+    }
+  } catch (err) {
+    console.error('Failed to drop email index:', err.message);
+  }
+  
   seedTeacher();
 });
 

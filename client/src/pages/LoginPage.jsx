@@ -107,11 +107,15 @@ const LoginPage = () => {
                 {role === 'student' ? 'Portal Username' : 'Email Address'}
               </label>
               <div className="relative group">
-                <Mail className="w-5 h-5 text-slate-400 group-focus-within:text-indigo-500 absolute left-4 top-1/2 -translate-y-1/2 transition-colors" />
+                {role === 'student' ? (
+                  <ShieldCheck className="w-5 h-5 text-slate-400 group-focus-within:text-indigo-500 absolute left-4 top-1/2 -translate-y-1/2 transition-colors" />
+                ) : (
+                  <Mail className="w-5 h-5 text-slate-400 group-focus-within:text-indigo-500 absolute left-4 top-1/2 -translate-y-1/2 transition-colors" />
+                )}
                 <input
                   type={role === 'student' ? 'text' : 'email'}
                   required
-                  placeholder={role === 'student' ? 'e.g. LUNA305' : 'name@domain.com'}
+                  placeholder={role === 'student' ? 'Enter your Portal Username Example: LUNA605' : 'name@domain.com'}
                   value={identifier}
                   onChange={(e) => setIdentifier(e.target.value)}
                   className="w-full bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 pl-12 pr-4 py-3.5 rounded-2xl text-slate-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all shadow-sm"

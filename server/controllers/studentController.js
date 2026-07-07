@@ -29,13 +29,7 @@ export const createStudent = async (req, res) => {
   } = req.body;
 
   try {
-    // 1. Check if parent user already exists (by email if provided)
-    if (parentEmail) {
-      const userExists = await User.findOne({ email: parentEmail.toLowerCase() });
-      if (userExists) {
-        return res.status(400).json({ message: 'Parent email already registered' });
-      }
-    }
+    // Email uniqueness check removed: Parents can share emails for multiple students.
 
     if (!rollNo) {
       return res.status(400).json({ message: 'Roll number is required for portal authentication' });
@@ -336,13 +330,7 @@ export const updateStudent = async (req, res) => {
       return res.status(404).json({ message: 'Student not found' });
     }
 
-    // Check if new parent email conflicts with another user
-    if (parentEmail && parentEmail.toLowerCase() !== student.parentEmail) {
-      const emailExists = await User.findOne({ email: parentEmail.toLowerCase(), _id: { $ne: student.parentId } });
-      if (emailExists) {
-        return res.status(400).json({ message: 'Parent email already registered to another user' });
-      }
-    }
+    // Email uniqueness check removed: Parents can share emails.
 
     // Check if new rollNo conflicts with another student
     if (rollNo && rollNo.toUpperCase() !== student.rollNo) {
