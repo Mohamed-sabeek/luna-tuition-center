@@ -157,6 +157,21 @@ const StudentManagement = () => {
     }
   };
 
+  const handleBulkDelete = async () => {
+    if (selectedIds.length === 0) return;
+    if (!window.confirm(`WARNING: Deleting ${selectedIds.length} student(s) will completely wipe their parent accounts, attendance records, test marks, fee logs, and lunas. Proceed?`)) {
+      return;
+    }
+    try {
+      await Promise.all(selectedIds.map(id => api.delete(`/students/${id}`)));
+      setAlertMsg({ text: `${selectedIds.length} students and related records wiped successfully.`, type: 'success' });
+      setSelectedIds([]);
+      fetchStudents();
+    } catch (error) {
+      setAlertMsg({ text: 'Failed to delete some or all selected students.', type: 'error' });
+    }
+  };
+
   const handleFileChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       setProfilePhotoFile(e.target.files[0]);
@@ -347,7 +362,7 @@ const StudentManagement = () => {
             <button onClick={handleBulkExportCSV} className="flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-lg text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 transition-colors">
               <Download className="w-3.5 h-3.5" /> Export
             </button>
-            <button onClick={() => alert('Bulk Delete coming soon')} className="flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-slate-800 border border-rose-200 dark:border-rose-900/50 rounded-lg text-xs font-bold text-rose-600 hover:bg-rose-50 transition-colors">
+            <button onClick={handleBulkDelete} className="flex items-center gap-1.5 px-3 py-1.5 bg-white dark:bg-slate-800 border border-rose-200 dark:border-rose-900/50 rounded-lg text-xs font-bold text-rose-600 hover:bg-rose-50 transition-colors">
               <Trash2 className="w-3.5 h-3.5" /> Delete
             </button>
 
