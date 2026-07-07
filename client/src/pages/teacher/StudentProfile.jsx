@@ -215,41 +215,53 @@ const StudentProfile = () => {
             <div className="p-4 border border-luna-green/20 bg-green-50/20 rounded-2xl flex items-center justify-between">
               <div>
                 <span className="text-xs font-bold text-slate-400 block mb-1">Academic Marks Lunas</span>
-                <span className="text-2xl font-black text-luna-green">{counts.full_marks}</span>
+                <span className="text-2xl font-black text-luna-green">{counts.green}</span>
                 <span className="text-[9px] text-slate-400 font-bold block mt-0.5">Test performance rewards</span>
               </div>
-              <div className="w-10 h-10 rounded-full flex items-center justify-center shadow-md shadow-luna-green/25">
+              <div className="w-16 h-16 rounded-full flex items-center justify-center shadow-md shadow-luna-green/25 shrink-0 relative">
                 <img src={fullMarkLunaImg} alt="Academic Marks Luna" className="w-full h-full object-cover rounded-full" />
+                <div className="absolute -top-1 -right-1 w-6 h-6 bg-luna-green text-white text-[11px] font-black rounded-full flex items-center justify-center border-2 border-white shadow-sm">
+                  {counts.green}
+                </div>
               </div>
             </div>
 
             <div className="p-4 border border-luna-purple/20 bg-luna-purple/5 rounded-2xl flex items-center justify-between">
               <div>
                 <span className="text-xs font-bold text-slate-400 block mb-1">Perfect Attendance</span>
-                <span className="text-2xl font-black text-luna-purple">{counts.attendance}</span>
+                <span className="text-2xl font-black text-luna-purple">{counts.purple}</span>
               </div>
-              <div className="w-10 h-10 rounded-full flex items-center justify-center shadow-md shadow-luna-purple/25">
+              <div className="w-16 h-16 rounded-full flex items-center justify-center shadow-md shadow-luna-purple/25 shrink-0 relative">
                 <img src={attendanceLunaImg} alt="Perfect Attendance Luna" className="w-full h-full object-cover rounded-full" />
+                <div className="absolute -top-1 -right-1 w-6 h-6 bg-luna-purple text-white text-[11px] font-black rounded-full flex items-center justify-center border-2 border-white shadow-sm">
+                  {counts.purple}
+                </div>
               </div>
             </div>
 
             <div className="p-4 border border-luna-orange/20 bg-luna-orange/5 rounded-2xl flex items-center justify-between">
               <div>
                 <span className="text-xs font-bold text-slate-400 block mb-1">2 Line Handwriting</span>
-                <span className="text-2xl font-black text-luna-orange">{counts.handwriting_2_line}</span>
+                <span className="text-2xl font-black text-luna-orange">{counts.orange}</span>
               </div>
-              <div className="w-10 h-10 rounded-full flex items-center justify-center shadow-md shadow-luna-orange/25">
+              <div className="w-16 h-16 rounded-full flex items-center justify-center shadow-md shadow-luna-orange/25 shrink-0 relative">
                 <img src={twoLineLunaImg} alt="2 Line Handwriting Luna" className="w-full h-full object-cover rounded-full" />
+                <div className="absolute -top-1 -right-1 w-6 h-6 bg-luna-orange text-white text-[11px] font-black rounded-full flex items-center justify-center border-2 border-white shadow-sm">
+                  {counts.orange}
+                </div>
               </div>
             </div>
 
             <div className="p-4 border border-luna-blue-accent/20 bg-luna-blue-accent/5 rounded-2xl flex items-center justify-between">
               <div>
                 <span className="text-xs font-bold text-slate-400 block mb-1">4 Line Handwriting</span>
-                <span className="text-2xl font-black text-luna-blue-accent">{counts.handwriting_4_line}</span>
+                <span className="text-2xl font-black text-luna-blue-accent">{counts.blue}</span>
               </div>
-              <div className="w-10 h-10 rounded-full flex items-center justify-center shadow-md shadow-luna-blue-accent/25">
+              <div className="w-16 h-16 rounded-full flex items-center justify-center shadow-md shadow-luna-blue-accent/25 shrink-0 relative">
                 <img src={fourLineLunaImg} alt="4 Line Handwriting Luna" className="w-full h-full object-cover rounded-full" />
+                <div className="absolute -top-1 -right-1 w-6 h-6 bg-luna-blue-accent text-white text-[11px] font-black rounded-full flex items-center justify-center border-2 border-white shadow-sm">
+                  {counts.blue}
+                </div>
               </div>
             </div>
           </div>
