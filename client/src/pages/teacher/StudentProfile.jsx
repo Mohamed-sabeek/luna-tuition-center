@@ -28,6 +28,11 @@ import {
   CartesianGrid
 } from 'recharts';
 
+import fullMarkLunaImg from '../../assets/lunas/FullMarkLuna.webp';
+import attendanceLunaImg from '../../assets/lunas/AttendanceLuna.webp';
+import twoLineLunaImg from '../../assets/lunas/2LineLuna.webp';
+import fourLineLunaImg from '../../assets/lunas/4LineLuna.webp';
+
 const StudentProfile = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -213,8 +218,8 @@ const StudentProfile = () => {
                 <span className="text-2xl font-black text-luna-green">{counts.full_marks}</span>
                 <span className="text-[9px] text-slate-400 font-bold block mt-0.5">Test performance rewards</span>
               </div>
-              <div className="w-10 h-10 rounded-full bg-luna-green flex items-center justify-center text-white fill-white shadow-md shadow-luna-green/25">
-                <Moon className="w-5 h-5 rotate-[-15deg] fill-current" />
+              <div className="w-10 h-10 rounded-full flex items-center justify-center shadow-md shadow-luna-green/25">
+                <img src={fullMarkLunaImg} alt="Academic Marks Luna" className="w-full h-full object-cover rounded-full" />
               </div>
             </div>
 
@@ -223,8 +228,8 @@ const StudentProfile = () => {
                 <span className="text-xs font-bold text-slate-400 block mb-1">Perfect Attendance</span>
                 <span className="text-2xl font-black text-luna-purple">{counts.attendance}</span>
               </div>
-              <div className="w-10 h-10 rounded-full bg-luna-purple flex items-center justify-center text-white fill-white shadow-md shadow-luna-purple/25">
-                <Moon className="w-5 h-5 rotate-[-15deg] fill-current" />
+              <div className="w-10 h-10 rounded-full flex items-center justify-center shadow-md shadow-luna-purple/25">
+                <img src={attendanceLunaImg} alt="Perfect Attendance Luna" className="w-full h-full object-cover rounded-full" />
               </div>
             </div>
 
@@ -233,8 +238,8 @@ const StudentProfile = () => {
                 <span className="text-xs font-bold text-slate-400 block mb-1">2 Line Handwriting</span>
                 <span className="text-2xl font-black text-luna-orange">{counts.handwriting_2_line}</span>
               </div>
-              <div className="w-10 h-10 rounded-full bg-luna-orange flex items-center justify-center text-white fill-white shadow-md shadow-luna-orange/25">
-                <Moon className="w-5 h-5 rotate-[-15deg] fill-current" />
+              <div className="w-10 h-10 rounded-full flex items-center justify-center shadow-md shadow-luna-orange/25">
+                <img src={twoLineLunaImg} alt="2 Line Handwriting Luna" className="w-full h-full object-cover rounded-full" />
               </div>
             </div>
 
@@ -243,8 +248,8 @@ const StudentProfile = () => {
                 <span className="text-xs font-bold text-slate-400 block mb-1">4 Line Handwriting</span>
                 <span className="text-2xl font-black text-luna-blue-accent">{counts.handwriting_4_line}</span>
               </div>
-              <div className="w-10 h-10 rounded-full bg-luna-blue-accent flex items-center justify-center text-white fill-white shadow-md shadow-luna-blue-accent/25">
-                <Moon className="w-5 h-5 rotate-[-15deg] fill-current" />
+              <div className="w-10 h-10 rounded-full flex items-center justify-center shadow-md shadow-luna-blue-accent/25">
+                <img src={fourLineLunaImg} alt="4 Line Handwriting Luna" className="w-full h-full object-cover rounded-full" />
               </div>
             </div>
           </div>
